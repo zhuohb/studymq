@@ -1,7 +1,7 @@
 package com.zhb.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.zhb.model.MqTopicModel;
+import com.zhb.model.TopicModel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -33,7 +33,7 @@ public class FileContentReaderUtil {
 	public static void main(String[] args) {
 		String content = FileContentReaderUtil.readFromFile("D:\\code\\zhuohb\\backend\\studymq\\broker\\config\\json\\mq-topic.json");
 		System.out.println(content);
-		List<MqTopicModel> modelList = JSON.parseArray(content, MqTopicModel.class);
+		List<TopicModel> modelList = JSON.parseArray(content, TopicModel.class);
 		System.out.println(modelList);
 	}
 

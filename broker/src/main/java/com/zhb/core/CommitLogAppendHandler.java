@@ -2,7 +2,7 @@ package com.zhb.core;
 
 import java.io.IOException;
 
-public class MessageAppendHandler {
+public class CommitLogAppendHandler {
 	private MMapFileModelManager mMapFileModelManager = new MMapFileModelManager();
 
 	/**
@@ -10,9 +10,9 @@ public class MessageAppendHandler {
 	 *
 	 * @throws IOException
 	 */
-	public void prepareMMapLoading(String filePath, String topicName) throws IOException {
+	public void prepareMMapLoading(String topicName) throws IOException {
 		MMapFileModel mapFileModel = new MMapFileModel();
-		mapFileModel.loadFileInMMap(filePath, 0, 1 * 1024 * 1024);
+		mapFileModel.loadFileInMMap(topicName, 0, 1 * 1024 * 1024);
 		mMapFileModelManager.put(topicName, mapFileModel);
 	}
 
