@@ -1,7 +1,6 @@
 package com.zhb.config;
 
 import com.zhb.cache.CommonCache;
-import com.zhb.constants.BrokerConstants;
 
 /**
  * 加载mq的配置属性
