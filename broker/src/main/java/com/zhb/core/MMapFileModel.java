@@ -1,44 +1,36 @@
-package com.zhb.utils;
+package com.zhb.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
-/**
- * 内存映射工具类
- */
-public class MMapUtil {
-
+public class MMapFileModel {
 	private File file;
 	private MappedByteBuffer mappedByteBuffer;
 	private FileChannel fileChannel;
 
 	/**
-	 * 指定offset做文件的映射
+	 * 文件的内存映射
 	 *
 	 * @param filePath    文件路径
-	 * @param startOffset 开始映射的offset
+	 * @param startOffset 文件开始映射的offset
 	 * @param mappedSize  映射的体积
+	 * @throws IOException
 	 */
 	public void loadFileInMMap(String filePath, int startOffset, int mappedSize) throws IOException {
 		file = new File(filePath);
 		if (!file.exists()) {
 			throw new FileNotFoundException("filePath is " + filePath + " inValid");
 		}
-		//RandomAccessFile是一个用于读取和写入文件的类,可以随机访问文件的任何部分
 		fileChannel = new RandomAccessFile(file, "rw").getChannel();
-		//映射文件到内存 映射区域可读可写
 		mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, startOffset, mappedSize);
 	}
 
 	/**
-	 * 支持从文件的指定offset开始读取内容
+	 * 从指定的位置开始读取内容
 	 *
 	 * @param readOffset
 	 * @param size
@@ -91,19 +83,4 @@ public class MMapUtil {
 		fileChannel.close();
 	}
 
-
-	public static void main(String[] args) throws IOException, InterruptedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-		Scanner input = new Scanner(System.in);
-		int i = 0;
-		long size = input.nextLong();
-		MMapUtil mMapUtil = new MMapUtil();
-		//默认是字节
-		mMapUtil.loadFileInMMap("D:\\code\\zhuohb\\backend\\studymq\\broker\\src\\main\\java\\com\\zhb\\config\\store\\order_cancel_topic\\00000000",
-			0, (int) (1024 * 1024 * size));
-		System.out.println("映射了" + size + "m的空间");
-		TimeUnit.SECONDS.sleep(5);
-		System.out.println("释放内存");
-		mMapUtil.clean();
-		TimeUnit.SECONDS.sleep(5);
-	}
 }

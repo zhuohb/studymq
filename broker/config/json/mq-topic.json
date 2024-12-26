@@ -1,0 +1,23 @@
+[
+  {
+    "topic": "order_topic",
+    "queueList": [
+      {
+        "id": 1,
+        "minOffset": 111,
+        "currentOffset": 133,
+        "maxOffset" : 155
+      },
+      {
+        "id": 2,
+        "minOffset": 111,
+        "currentOffset": 133,
+        "maxOffset" : 155
+      }
+    ],
+    "createAt":1701918231281,
+    "updateAt":1701918231280
+  }
+]
+
+
