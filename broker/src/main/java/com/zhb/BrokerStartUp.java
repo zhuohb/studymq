@@ -43,5 +43,7 @@ public class BrokerStartUp {
 		String topic = "order_cancel_topic";
 		messageAppendHandler.appendMsg(topic, "this is a test content");
 		messageAppendHandler.readMsg(topic);
+		//D:\code\zhuohb\backend\studymq\broker\config\store\order_cancel_topic\00000000
+		//D:\code\zhuohb\backend\studymq\broker\config\store\order_topic\00000000
 	}
 }

@@ -1,6 +1,6 @@
 [
   {
-    "topic": "order_topic",
+    "topic": "order_cancel_topic",
     "queueList": [
       {
         "id": 1,
