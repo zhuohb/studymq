@@ -1,5 +1,7 @@
 package com.zhb.core;
 
+import com.zhb.model.CommitLogMessageModel;
+
 import java.io.IOException;
 
 public class CommitLogAppendHandler {
@@ -16,12 +18,15 @@ public class CommitLogAppendHandler {
 		mMapFileModelManager.put(topicName, mapFileModel);
 	}
 
-	public void appendMsg(String topic, String content) {
+	public void appendMsg(String topic, byte[] content) {
 		MMapFileModel mapFileModel = mMapFileModelManager.get(topic);
 		if (mapFileModel == null) {
 			throw new RuntimeException("topic is invalid!");
 		}
-		mapFileModel.writeContent(content.getBytes());
+		CommitLogMessageModel commitLogMessageModel = new CommitLogMessageModel();
+		commitLogMessageModel.setSize(content.length);
+		commitLogMessageModel.setContent(content);
+		mapFileModel.writeContent(commitLogMessageModel);
 	}
 
 	public void readMsg(String topic) {

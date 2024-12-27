@@ -2,6 +2,7 @@ package com.zhb.core;
 
 import com.zhb.cache.CommonCache;
 import com.zhb.constants.BrokerConstants;
+import com.zhb.model.CommitLogMessageModel;
 import com.zhb.model.CommitLogModel;
 import com.zhb.model.TopicModel;
 import com.zhb.utils.CommitLogFileNameUtil;
@@ -103,19 +104,19 @@ public class MMapFileModel {
 	 * 写入数据到磁盘当中
 	 * 默认不强制刷盘
 	 *
-	 * @param content
+	 * @param commitLogMessageModel
 	 */
-	public void writeContent(byte[] content) {
-		this.writeContent(content, false);
+	public void writeContent(CommitLogMessageModel commitLogMessageModel) {
+		this.writeContent(commitLogMessageModel, false);
 	}
 
 	/**
 	 * 写入数据到磁盘当中
 	 *
-	 * @param content
+	 * @param commitLogMessageModel
 	 * @param force
 	 */
-	public void writeContent(byte[] content, boolean force) {
+	public void writeContent(CommitLogMessageModel commitLogMessageModel, boolean force) {
 		//1. 定位到最新的commitLog文件中，记录下当前文件是否已经写满，如果写满，则创建新的文件，并且做新的mmap映射
 		//2. 如果当前文件没有写满，对content内容做一层封装，再判断写入是否会导致commitLog写满，如果不会，则选择当前commitLog，如果会则创建新文件，并且做mmap映射
 		//3. 定位到最新的commitLog文件之后，写入
@@ -128,7 +129,7 @@ public class MMapFileModel {
 
 
 		//默认刷到page cache中，
-		mappedByteBuffer.put(content);
+		mappedByteBuffer.put(commitLogMessageModel.convertToBytes());
 		if (force) {
 			//强制刷盘
 			mappedByteBuffer.force();
