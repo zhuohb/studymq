@@ -2,10 +2,11 @@ package com.zhb.config;
 
 import lombok.Data;
 
-/**
- * mq的配置属性
- */
 @Data
 public class GlobalProperties {
-	private String mqHome;
+
+	/**
+	 * 读取环境变量中配置的mq存储绝对路径地址
+	 */
+	private String eagleMqHome;
 }
