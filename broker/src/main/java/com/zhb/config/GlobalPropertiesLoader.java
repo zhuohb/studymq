@@ -1,25 +1,22 @@
 package com.zhb.config;
 
 import com.zhb.cache.CommonCache;
+import com.zhb.constants.BrokerConstants;
+import io.netty.util.internal.StringUtil;
 
 /**
- * 加载mq的配置属性
+ * 属性初始化
+ * EAGLE_MQ_HOME需要配置环境变量,开发的时候可以写死
  */
 public class GlobalPropertiesLoader {
 
-
-	/**
-	 * 加载mq的配置属性
-	 */
 	public void loadProperties() {
 		GlobalProperties globalProperties = new GlobalProperties();
-		//开发的时候先写死路径吧
-//		String property = System.getenv(BrokerConstants.MQ_HOME);
-		String property = "D:\\code\\zhuohb\\backend\\studymq";
-		if (property == null || property.isEmpty()) {
-			throw new IllegalArgumentException("MQ_HOME is null");
+		String eagleMqHome = System.getenv(BrokerConstants.EAGLE_MQ_HOME);
+		if (StringUtil.isNullOrEmpty(eagleMqHome)) {
+			throw new IllegalArgumentException("EAGLE_MQ_HOME is null");
 		}
-		globalProperties.setMqHome(property);
+		globalProperties.setEagleMqHome(eagleMqHome);
 		CommonCache.setGlobalProperties(globalProperties);
 	}
 }
