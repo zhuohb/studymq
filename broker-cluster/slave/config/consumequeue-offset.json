@@ -1,0 +1,15 @@
+{
+	"offsetTable":{
+		"topicConsumerGroupDetail":{
+			"pay_success":{
+				"consumerGroupDetailMap":{
+					"test-consume-group":{
+						"0":"00000000#384",
+						"1":"00000000#336",
+						"2":"00000000#444"
+					}
+				}
+			}
+		}
+	}
+}

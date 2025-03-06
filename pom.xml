@@ -6,21 +6,27 @@
 
     <groupId>com.zhb</groupId>
     <artifactId>studymq</artifactId>
-    <version>${revision}</version>
+    <version>1.0</version>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>broker</module>
+        <module>eaglemq-broker</module>
+        <module>eaglemq-common</module>
+        <module>eaglemq-nameserver</module>
+        <module>eaglemq-client</module>
     </modules>
 
     <properties>
-        <revision>1.0</revision>
+        <eagal.version>1.0</eagal.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <netty.version>4.1.68.Final</netty.version>
         <fastJson.version>2.0.10</fastJson.version>
+        <guava.version>21.0</guava.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <slf4j.version>1.7.32</slf4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -45,6 +51,16 @@
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
     </dependencies>
