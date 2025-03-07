@@ -1,10 +1,9 @@
 package com.zhb.nameserver.enums;
 
-/**
- * @Author idea
- * @Date: Created in 16:11 2024/5/18
- * @Description
- */
+
+import lombok.Getter;
+
+@Getter
 public enum ReplicationRoleEnum {
 
 	MASTER("master", "主从-主"),
@@ -12,8 +11,8 @@ public enum ReplicationRoleEnum {
 	NODE("not_tail_node", "链路复制-非尾部节点"),
 	TAIL_NODE("tail_node", "链路复制-尾部节点"),
 	;
-	String code;
-	String desc;
+	final String code;
+	final String desc;
 
 	ReplicationRoleEnum(String code, String desc) {
 		this.code = code;
@@ -29,11 +28,4 @@ public enum ReplicationRoleEnum {
 		return null;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
 }

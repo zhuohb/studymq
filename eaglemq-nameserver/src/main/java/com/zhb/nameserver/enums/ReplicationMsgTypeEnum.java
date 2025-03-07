@@ -1,10 +1,11 @@
 package com.zhb.nameserver.enums;
 
+import lombok.Getter;
+
 /**
- * @Author idea
- * @Date: Created in 15:30 2024/6/1
- * @Description 复制数据类型枚举
+ * 复制数据类型枚举
  */
+@Getter
 public enum ReplicationMsgTypeEnum {
 
 	REGISTRY(1, "节点复制"),
@@ -15,14 +16,7 @@ public enum ReplicationMsgTypeEnum {
 		this.desc = desc;
 	}
 
-	int code;
-	String desc;
+	final int code;
+	final String desc;
 
-	public int getCode() {
-		return code;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
 }

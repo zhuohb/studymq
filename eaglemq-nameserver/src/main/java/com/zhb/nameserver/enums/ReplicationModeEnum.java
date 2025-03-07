@@ -1,16 +1,15 @@
 package com.zhb.nameserver.enums;
 
-/**
- * @Author idea
- * @Date: Created in 16:11 2024/5/18
- * @Description
- */
+
+import lombok.Getter;
+
+@Getter
 public enum ReplicationModeEnum {
 
 	MASTER_SLAVE("master_slave", "主从复制模式"),
 	TRACE("trace", "链路复制模式");
-	String code;
-	String desc;
+	final String code;
+	final String desc;
 
 	ReplicationModeEnum(String code, String desc) {
 		this.code = code;
@@ -26,11 +25,4 @@ public enum ReplicationModeEnum {
 		return null;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
 }
