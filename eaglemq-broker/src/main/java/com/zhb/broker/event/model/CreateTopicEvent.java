@@ -2,21 +2,16 @@ package com.zhb.broker.event.model;
 
 import com.zhb.common.dto.CreateTopicReqDTO;
 import com.zhb.common.event.model.Event;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * @author idea
- * @create 2024/7/3 08:07
- * @description 创建topic事件
+ * 创建topic事件
  */
+@Setter
+@Getter
 public class CreateTopicEvent extends Event {
 
-    private CreateTopicReqDTO createTopicReqDTO;
+	private CreateTopicReqDTO createTopicReqDTO;
 
-    public CreateTopicReqDTO getCreateTopicReqDTO() {
-        return createTopicReqDTO;
-    }
-
-    public void setCreateTopicReqDTO(CreateTopicReqDTO createTopicReqDTO) {
-        this.createTopicReqDTO = createTopicReqDTO;
-    }
 }

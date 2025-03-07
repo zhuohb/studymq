@@ -19,20 +19,39 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-
+/**
+ * CommitLog追加处理器
+ * 负责消息的持久化和主从节点之间的消息同步
+ */
 @Slf4j
 public class CommitLogAppendHandler {
+	/**
+	 * 准备内存映射文件加载
+	 * 为指定主题创建并加载内存映射文件，用于消息持久化
+	 *
+	 * @param topicName 主题名称
+	 * @throws IOException 如果文件操作失败
+	 */
 	public void prepareMMapLoading(String topicName) throws IOException {
 		CommitLogMMapFileModel mapFileModel = new CommitLogMMapFileModel();
 		mapFileModel.loadFileInMMap(topicName, 0, BrokerConstants.COMMIT_LOG_DEFAULT_MMAP_SIZE);
 		CommonCache.getCommitLogMMapFileModelManager().put(topicName, mapFileModel);
 	}
 
+	/**
+	 * 追加消息并处理主从同步
+	 * 负责将消息写入CommitLog并根据集群配置处理主从节点同步
+	 *
+	 * @param messageDTO 消息数据传输对象
+	 * @param event      事件对象，包含上下文信息
+	 * @throws IOException 如果消息写入失败
+	 */
 	public void appendMsg(MessageDTO messageDTO, Event event) throws IOException {
+		// 将消息追加到CommitLog
 		CommonCache.getCommitLogAppendHandler().appendMsg(messageDTO);
 		int sendWay = messageDTO.getSendWay();
 		boolean isAsyncSend = MessageSendWay.ASYNC.getCode() == sendWay;
-		//判断下是主节点还是从节点
+		// 判断集群模式和节点角色
 		boolean isClusterMode = BrokerClusterModeEnum.MASTER_SLAVE.getCode().equals(CommonCache.getGlobalProperties().getBrokerClusterMode());
 		boolean isMasterNode = "master".equals(CommonCache.getGlobalProperties().getBrokerClusterRole());
 		boolean isDelayMsg = messageDTO.getDelay() > 0;
@@ -42,6 +61,7 @@ public class CommitLogAppendHandler {
 				for (ChannelHandlerContext slaveChannel : CommonCache.getSlaveChannelMap().values()) {
 					slaveChannel.writeAndFlush(new TcpMsg(BrokerEventCode.PUSH_MSG.getCode(), JSON.toJSONBytes(messageDTO)));
 				}
+				// 对于异步发送或延迟消息，无需等待从节点响应
 				if (isAsyncSend || isDelayMsg) {
 					return;
 				}
@@ -56,6 +76,7 @@ public class CommitLogAppendHandler {
 					event.getChannelHandlerContext().writeAndFlush(responseMsg);
 					return;
 				}
+				// 创建同步Future，等待从节点确认
 				SyncFuture syncFuture = new SyncFuture();
 				syncFuture.setMsgId(messageDTO.getMsgId());
 				BrokerServerSyncFutureManager.put(messageDTO.getMsgId(), syncFuture);
@@ -66,7 +87,7 @@ public class CommitLogAppendHandler {
 					sendMsgResp.setMsgId(messageDTO.getMsgId());
 					sendMsgResp.setStatus(SendMessageToBrokerResponseStatus.FAIL.getCode());
 					try {
-						//主从网络延迟非常严重
+						//主从网络延迟非常严重  等待3秒从节点同步响应，超时则认为同步失败
 						slaveSyncRespDTO = (SlaveSyncRespDTO) slaveSyncAckRespFuture.get(3, TimeUnit.SECONDS);
 						if (slaveSyncRespDTO.isSyncSuccess()) {
 							sendMsgResp.setStatus(SendMessageToBrokerResponseStatus.SUCCESS.getCode());
@@ -90,6 +111,7 @@ public class CommitLogAppendHandler {
 					event.getChannelHandlerContext().writeAndFlush(responseMsg);
 				}
 			} else {
+				// 从节点处理逻辑
 				if (isAsyncSend || isDelayMsg) {
 					return;
 				}
@@ -99,13 +121,13 @@ public class CommitLogAppendHandler {
 				slaveSyncAckRespDTO.setMsgId(messageDTO.getMsgId());
 				event.getChannelHandlerContext().writeAndFlush(new TcpMsg(BrokerResponseCode.SLAVE_SYNC_RESP.getCode(),
 					JSON.toJSONBytes(slaveSyncAckRespDTO)));
-				return;
 			}
 		} else {
 			//单机版本处理逻辑
 			if (isAsyncSend || isDelayMsg) {
 				return;
 			}
+			// 构建并发送消息发送成功响应
 			SendMessageToBrokerResponseDTO sendMessageToBrokerResponseDTO = new SendMessageToBrokerResponseDTO();
 			sendMessageToBrokerResponseDTO.setStatus(SendMessageToBrokerResponseStatus.SUCCESS.getCode());
 			sendMessageToBrokerResponseDTO.setMsgId(messageDTO.getMsgId());
@@ -114,11 +136,20 @@ public class CommitLogAppendHandler {
 		}
 	}
 
+	/**
+	 * 将消息追加到CommitLog
+	 * 负责实际的消息写入操作
+	 *
+	 * @param messageDTO 消息数据传输对象
+	 * @throws IOException 如果写入操作失败
+	 */
 	public void appendMsg(MessageDTO messageDTO) throws IOException {
+		// 获取对应主题的内存映射文件模型
 		CommitLogMMapFileModel mapFileModel = CommonCache.getCommitLogMMapFileModelManager().get(messageDTO.getTopic());
 		if (mapFileModel == null) {
 			throw new RuntimeException("topic is invalid!");
 		}
+		// 将消息内容写入内存映射文件
 		mapFileModel.writeContent(messageDTO, true);
 	}
 

@@ -3,12 +3,9 @@ package com.zhb.broker.timewheel;
 import com.zhb.common.dto.MessageDTO;
 import com.zhb.common.dto.MessageRetryDTO;
 import com.zhb.common.dto.TxMessageDTO;
+import lombok.Getter;
 
-/**
- * @Author idea
- * @Date: Created at 2024/7/28
- * @Description
- */
+@Getter
 public enum SlotStoreTypeEnum {
 
     MESSAGE_RETRY_DTO(MessageRetryDTO.class),
@@ -21,7 +18,4 @@ public enum SlotStoreTypeEnum {
         this.clazz = clazz;
     }
 
-    public Class getClazz() {
-        return clazz;
-    }
 }
