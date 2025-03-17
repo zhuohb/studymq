@@ -1,29 +1,14 @@
 package com.zhb.common.dto;
 
-/**
- * @Author idea
- * @Date: Created in 16:47 2024/6/11
- * @Description
- */
-public class PullBrokerIpDTO extends BaseNameServerRemoteDTO{
+import lombok.Getter;
+import lombok.Setter;
 
-    private String role;
+@Setter
+@Getter
+public class PullBrokerIpDTO extends BaseNameServerRemoteDTO {
 
-    private String brokerClusterGroup;
+	private String role;
 
-    public String getBrokerClusterGroup() {
-        return brokerClusterGroup;
-    }
+	private String brokerClusterGroup;
 
-    public void setBrokerClusterGroup(String brokerClusterGroup) {
-        this.brokerClusterGroup = brokerClusterGroup;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

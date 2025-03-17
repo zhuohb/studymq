@@ -1,23 +1,20 @@
 package com.zhb.common.enums;
 
+import lombok.Getter;
+
 /**
- * @Author idea
- * @Date: Created in 19:50 2024/6/10
- * @Description 注册类型
+ * 注册类型
  */
+@Getter
 public enum RegistryTypeEnum {
 
-    PRODUCER("producer"),
-    CONSUMER("consumer"),
-    BROKER("broker")
-    ;
-    String code;
+	PRODUCER("producer"),
+	CONSUMER("consumer"),
+	BROKER("broker");
+	private final String code;
 
-    RegistryTypeEnum(String code) {
-        this.code = code;
-    }
+	RegistryTypeEnum(String code) {
+		this.code = code;
+	}
 
-    public String getCode() {
-        return code;
-    }
 }

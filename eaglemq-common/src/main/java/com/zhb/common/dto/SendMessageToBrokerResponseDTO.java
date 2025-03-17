@@ -1,36 +1,21 @@
 package com.zhb.common.dto;
 
 import com.zhb.common.enums.SendMessageToBrokerResponseStatus;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * @Author idea
- * @Date: Created in 20:08 2024/6/15
- * @Description
- */
-public class SendMessageToBrokerResponseDTO extends BaseBrokerRemoteDTO{
 
-    /**
-     * 发送消息的结果状态
-     *
-     * @see SendMessageToBrokerResponseStatus
-     */
-    private int status;
+@Setter
+@Getter
+public class SendMessageToBrokerResponseDTO extends BaseBrokerRemoteDTO {
 
-    private String desc;
+	/**
+	 * 发送消息的结果状态
+	 *
+	 * @see SendMessageToBrokerResponseStatus
+	 */
+	private int status;
 
-    public String getDesc() {
-        return desc;
-    }
+	private String desc;
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }

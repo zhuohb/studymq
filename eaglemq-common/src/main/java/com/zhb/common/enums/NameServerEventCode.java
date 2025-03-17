@@ -1,10 +1,9 @@
 package com.zhb.common.enums;
 
-/**
- * @Author idea
- * @Date: Created in 14:20 2024/5/4
- * @Description
- */
+import lombok.Getter;
+
+
+@Getter
 public enum NameServerEventCode {
     REGISTRY(1,"注册事件"),
     UN_REGISTRY(2,"下线事件"),
@@ -19,19 +18,12 @@ public enum NameServerEventCode {
     PULL_BROKER_IP_LIST(11,"拉取broker的主节点ip地址"),
     ;
 
-    int code;
-    String desc;
+    private final int code;
+    private final String desc;
 
     NameServerEventCode(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
 }

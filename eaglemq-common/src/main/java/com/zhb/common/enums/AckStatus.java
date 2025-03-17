@@ -1,10 +1,9 @@
 package com.zhb.common.enums;
 
-/**
- * @author idea
- * @create 2024/6/26 08:47
- * @description
- */
+
+import lombok.Getter;
+
+@Getter
 public enum AckStatus {
 
     SUCCESS(1),
@@ -15,9 +14,6 @@ public enum AckStatus {
         this.code = code;
     }
 
-    int code;
+	private final int code;
 
-    public int getCode() {
-        return code;
-    }
 }

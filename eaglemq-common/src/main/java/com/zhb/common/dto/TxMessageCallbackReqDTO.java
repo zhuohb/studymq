@@ -1,19 +1,13 @@
 package com.zhb.common.dto;
 
-/**
- * @Author idea
- * @Date: Created at 2024/8/18
- * @Description
- */
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Setter
+@Getter
 public class TxMessageCallbackReqDTO {
 
-    private MessageDTO messageDTO;
+	private MessageDTO messageDTO;
 
-    public MessageDTO getMessageDTO() {
-        return messageDTO;
-    }
-
-    public void setMessageDTO(MessageDTO messageDTO) {
-        this.messageDTO = messageDTO;
-    }
 }

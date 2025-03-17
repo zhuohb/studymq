@@ -1,12 +1,14 @@
 package com.zhb.common.dto;
 
 import com.zhb.common.enums.AckStatus;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * @Author idea
- * @Date: Created at 2024/7/21
- * @Description 消息重试确认返回DTO
+ * 消息重试确认返回DTO
  */
+@Setter
+@Getter
 public class ConsumeMsgRetryRespDTO extends BaseBrokerRemoteDTO{
 
     /**
@@ -15,11 +17,4 @@ public class ConsumeMsgRetryRespDTO extends BaseBrokerRemoteDTO{
      */
     private int ackStatus;
 
-    public int getAckStatus() {
-        return ackStatus;
-    }
-
-    public void setAckStatus(int ackStatus) {
-        this.ackStatus = ackStatus;
-    }
 }

@@ -1,10 +1,9 @@
 package com.zhb.common.enums;
 
-/**
- * @Author idea
- * @Date: Created in 09:55 2024/6/16
- * @Description
- */
+
+import lombok.Getter;
+
+@Getter
 public enum BrokerResponseCode {
 
     SEND_MSG_RESP(2001,"推送消息给broker，响应code"),
@@ -19,19 +18,12 @@ public enum BrokerResponseCode {
     TX_CALLBACK_MSG(2010,"事务消息回调信号"),
     ;
 
-    int code;
-    String desc;
+    private final int code;
+    private final String desc;
 
     BrokerResponseCode(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
 }

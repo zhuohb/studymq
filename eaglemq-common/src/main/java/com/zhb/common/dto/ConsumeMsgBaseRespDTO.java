@@ -1,21 +1,15 @@
 package com.zhb.common.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-/**
- * @author idea
- * @create 2024/6/25 23:35
- * @description
- */
-public class ConsumeMsgBaseRespDTO extends BaseBrokerRemoteDTO{
 
-    private List<ConsumeMsgRespDTO> consumeMsgRespDTOList;
+@Setter
+@Getter
+public class ConsumeMsgBaseRespDTO extends BaseBrokerRemoteDTO {
 
-    public List<ConsumeMsgRespDTO> getConsumeMsgRespDTOList() {
-        return consumeMsgRespDTOList;
-    }
+	private List<ConsumeMsgRespDTO> consumeMsgRespDTOList;
 
-    public void setConsumeMsgRespDTOList(List<ConsumeMsgRespDTO> consumeMsgRespDTOList) {
-        this.consumeMsgRespDTOList = consumeMsgRespDTOList;
-    }
 }

@@ -1,19 +1,13 @@
 package com.zhb.common.dto;
 
-/**
- * @Author idea
- * @Date: Created at 2024/8/17
- * @Description
- */
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Setter
+@Getter
 public class TxMessageDTO {
 
-    private String msgId;
+	private String msgId;
 
-    public String getMsgId() {
-        return msgId;
-    }
-
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
-    }
 }

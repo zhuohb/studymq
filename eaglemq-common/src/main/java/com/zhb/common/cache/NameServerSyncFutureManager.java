@@ -5,11 +5,7 @@ import com.zhb.common.remote.SyncFuture;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @Author idea
- * @Date: Created in 20:00 2024/6/10
- * @Description
- */
+
 public class NameServerSyncFutureManager {
 
     private static Map<String, SyncFuture> syncFutureMap = new ConcurrentHashMap<>();
