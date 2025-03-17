@@ -11,7 +11,7 @@ public enum RegistryTypeEnum {
 	PRODUCER("producer"),
 	CONSUMER("consumer"),
 	BROKER("broker");
-	private final String code;
+	final String code;
 
 	RegistryTypeEnum(String code) {
 		this.code = code;

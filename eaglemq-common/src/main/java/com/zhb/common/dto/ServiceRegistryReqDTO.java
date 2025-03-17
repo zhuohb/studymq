@@ -12,18 +12,19 @@ import java.util.Map;
  */
 @Setter
 @Getter
-public class ServiceRegistryReqDTO extends BaseNameServerRemoteDTO{
+public class ServiceRegistryReqDTO extends BaseNameServerRemoteDTO {
 
-    /**
-     * 节点的注册类型，方便统计数据使用
-     * @see RegistryTypeEnum
-     */
-    private String registryType;
-    private String user;
-    private String password;
-    private String ip;
-    private Integer port;
-    //后续会用到 todo
-    private Map<String,Object> attrs = new HashMap<>();
+	/**
+	 * 节点的注册类型，方便统计数据使用
+	 *
+	 * @see RegistryTypeEnum
+	 */
+	private String registryType;
+	private String user;
+	private String password;
+	private String ip;
+	private Integer port;
+	//后续会用到 todo
+	private Map<String, Object> attrs = new HashMap<>();
 
 }
